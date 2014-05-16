@@ -110,7 +110,7 @@ log[to_date(5, 14)][map_jobba] = to_working_days(3, 5)
 log[to_date(5, 14)][jenkins] = to_working_days(5, 30)
 
 log[to_date(5, 15)][jenkins] = to_working_days(1, 20)
-log[to_date(5, 15)][meetings] = to_working_days(1, 45) # mandantenrouting, Buchung
+log[to_date(5, 15)][meetings] = to_working_days(1, 45) # mandantenroutine, Buchung
 log[to_date(5, 15)][yapital] = to_working_days(5, 30)
 
 log[to_date(5, 16)][meetings] = to_working_days(1,00) # umzug
