@@ -42,11 +42,12 @@ log = Hash.new { |h, k| h[k] = Hash.new { |ih, ik| ih[ik] = 0 } }
 
 
 accounts = {}
-accounts[:a_7922_hf_3] = '7922: HF Support (3rd lvl)'
+accounts[:a_7922_hf_3] = '7922: HF Kleinere SW Anpassungen (3rd lvl)'
 accounts[:a_7922_baur] = '7922:STAR Support durch HF (3rd lvl)'
 accounts[:a_7871_jenkins] = '7871: QF Jenkins'
 accounts[:a_7871_qf_mandanten] = '7871: QF Mandantenuebergerifende Anforderungen HF'
 accounts[:a_7905_3039] = '7905- RT3039 (5 PT)'
+accounts[:REBOOK] = 'no augeo account yet or other uncleared circumstances'
 
 
 map_jobba = Rt.new 2911, 'map_jobba extension', :a_7922_hf_3
@@ -60,7 +61,14 @@ map_jobba_baur = Rt.new 3175, 'map_jobba beendet sich nicht, wenn LV läuft (COM
 yapital = Rt.new 3039, 'map_jobba beendet sich nicht, wenn LV läuft (COMMON11)', :a_7905_3039
 order_import_logs = Rt.new 3085, 'starlight Errorlog ohne Fehler, obwohl in amos.err mit Fehlercode "E" gemeldet
 wird', :a_7922_baur
+
 jenkins = Rt.new 0000, 'all the jenkins tests', :a_7871_jenkins
+rebook = Rt.new 0000, 'need an augeo account for this', :REBOOK
+
+custorders_timeout = Rt.new 3188, 'Timeout ifp_hermes3gl_customerorders_send', :a_7922_hf_3
+
+
+
 
 puts "your rt as yaml : #{map_jobba.to_yaml}"
 #puts "your rt as json : #{map_jobba.to_json}"
@@ -115,6 +123,32 @@ log[to_date(5, 15)][yapital] = to_working_days(5, 30)
 
 log[to_date(5, 16)][meetings] = to_working_days(1,00) # umzug
 log[to_date(5, 16)][yapital] = to_working_days(8, 15)
+
+# --- kw 21
+
+log[to_date(5, 19)][yapital] = to_working_days(1, 40)
+log[to_date(5, 19)][jenkins] = to_working_days(1, 15)
+log[to_date(5, 19)][custorders_timeout] = to_working_days(1, 15)
+
+log[to_date(5, 20)][meetings] = to_working_days(0, 40)
+log[to_date(5, 20)][meetings] = to_working_days(1, 00) # meeting confluence/jira
+log[to_date(5, 20)][jenkins] = to_working_days(1, 30) # map_jobba HWW/Japan
+log[to_date(5, 20)][jenkins] = to_working_days(2, 05) # others -> see history
+
+log[to_date(5, 21)][jenkins] = to_working_days(4, 45) # soap_tester, mock_server
+
+log[to_date(5, 22)][meetings] = to_working_days(0, 40) # daily
+log[to_date(5, 22)][meetings] = to_working_days(1, 30) # Info Beirat, Mandantenroutine
+log[to_date(5, 22)][meetings] = to_working_days(1, 0) # Protokoll Mandantenroutine
+log[to_date(5, 22)][meetings] = to_working_days(1, 15) # redaktionelle Entscheidungsfindung  Inhaltssplit zwischen Betriebssicht und Instanzsicht
+log[to_date(5, 22)][jenkins] = to_working_days(3, 15) # soap_tester & mock_server
+
+log[to_date(5, 23)][rebook] = to_working_days(1, 10) # analyse rt 3214, 3241
+log[to_date(5, 23)][jenkins] = to_working_days(2, 30) # mock_server semaphore split
+
+
+
+
 
 #print all
 log.keys.sort.each { |day|
