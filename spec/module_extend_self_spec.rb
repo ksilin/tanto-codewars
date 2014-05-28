@@ -1,4 +1,4 @@
-require 'rspec'
+    require 'rspec'
 
 # This post started it all:
 # http://blog.rubybestpractices.com/posts/gregory/040-issue-10-uses-for-modules.html
