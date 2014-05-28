@@ -7,7 +7,6 @@ module MethodHider
 
   def self.included(base)
     r = rand(0..9)
-    binding.pry
     if r < 8
       m = create_module
       # you will not get a name for your newly created base module
@@ -39,6 +38,34 @@ end
 
 class Inflammable
   include MethodHider # BAM!
+
   puts 'ancestors:'
-  puts ancestors.each { |a| puts "#{a.inspect}: #{a.singleton_methods.grep(/hidden/)}}" }
+  puts ancestors.inspect
+  puts ancestors.each { |a| puts "#{a.inspect}: #{a.singleton_methods.grep(/hidden/)}" }
+  puts 'nesting:'
+  puts Module.nesting.inspect
+  puts 'constants:'
+  puts constants.inspect
+  puts 'included modules:'
+  puts included_modules.inspect
+
 end
+
+class Deriver
+
+  def self.inherited(klass)
+    a = "RandomClass_#{rand(1..9999)}"
+    puts "my class name: #{a}, inherited by #{klass.inspect}"
+    const_set(a, Class.new(klass)) if rand(1000) == 3
+    puts "and the constant: #{const_get(a)}"
+  end
+
+end
+
+# Object.module_eval("::SomeClassName", __FILE__, __LINE__)
+
+class X < Deriver
+end
+
+
+# TODO: explore the hierarchy of Inflammable
